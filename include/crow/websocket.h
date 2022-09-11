@@ -139,7 +139,7 @@ namespace crow
                 adaptor_.get_io_service().dispatch(
                   [this,
                    handler = std::forward<CompletionHandler>(handler),
-                   watch = std::weak_ptr<void>{anchor_}] {
+                   watch = std::weak_ptr<void>{anchor_}]() mutable {
                       auto anchor = watch.lock();
                       if (anchor == nullptr) { return; }
 
@@ -154,7 +154,7 @@ namespace crow
                 adaptor_.get_io_service().post(
                   [this,
                    handler = std::forward<CompletionHandler>(handler),
-                   watch = std::weak_ptr<void>{anchor_}] {
+                   watch = std::weak_ptr<void>{anchor_}]() mutable {
                       auto anchor = watch.lock();
                       if (anchor == nullptr) { return; }
 
